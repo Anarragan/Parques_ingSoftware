@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Ficha/kisspng-chess-pawn-clip-art-5aeb48a4021bb8.6865798615253689960086.png" type="Texture" id=1]
+[ext_resource path="res://Ficha/Ficha.gd" type="Script" id=2]
+
+[node name="Ficha" type="Sprite"]
+position = Vector2( 2, 114 )
+scale = Vector2( 0.603516, 0.666016 )
+texture = ExtResource( 1 )
+script = ExtResource( 2 )
