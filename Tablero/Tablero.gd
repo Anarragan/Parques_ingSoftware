@@ -2,6 +2,9 @@ extends Node2D
 
 # TO DO: Hacer la gestion de turnos de cada jugar (de hecho, según los diagramas que tenemos, deberia de existir
 	#   un game master para esto, lo ideal crear un script aparte o global)
+	
+# TO DO: Debe existir el objeto jugador que basicamente se encargara de "recibir" el turno y asi sus fichas son las que se mueven,
+# pasar turno, ser soplado, etc. 
 
 # TO DO: Hacer la funcionalida de "soplar" (lo mismo, lo ideal seria introducirlo en el game master)
 
