@@ -39,6 +39,7 @@ var posicion_actual = 2 #Es la posicion actual de la ficha (prueba)
 
 
 func mover_ficha(dado1_valor, dado2_valor, position_ficha):
+	nodo_game_master.cambiar_anuncio("No hay Anuncios")
 	# Si los dados tienen el mismo valor, mueve la ficha
 	# Esto aplica cuando una ficha esta en la casa, para sacarla 
 	

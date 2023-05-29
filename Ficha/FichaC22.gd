@@ -12,12 +12,12 @@ extends Sprite
 # TO DO: Cuando la ficha llegue a la meta, esta queda "inhabilitada". es decir ya no esta disponible para mover
 
 
-var salida = true #Como estamos en prueba, la ficha ya esta afuera
+var salida = false
+
 var jugador = null
 
 var casa_ficha = null
 var numero_ficha = null
-
 var nodo_game_master = null
 
 func _ready():
@@ -31,21 +31,40 @@ func _ready():
 	numero_ficha = nombrepParentNode[-1]
 	print(casa_ficha, numero_ficha)
 	
+func estado_salida():
+	return salida
 
+func ficha_a_casa():
+	salida = false
 
 func salio_de_casa():
 	salida = true
-var posicion_actual = 2 #Es la posicion actual de la ficha (prueba)
+	
+var posicion_actual = 7 # es la casilla en la que esta la ficha
 
+func salir_a_casa():
+	var salida_inicial = get_node("../../Casilla24(Salida C2)").get_global_position()
+	print(salida_inicial)
+	var tween = get_node("../MovimientoC22")
+	print(tween)
+	var nodo_ficha = get_node("..")
+	print(nodo_ficha)
+	tween.interpolate_property(nodo_ficha, "position", nodo_ficha.position, salida_inicial, 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	tween.start()
+	yield(tween, "tween_completed")
+	salio_de_casa()
 
 func mover_ficha(dado1_valor, dado2_valor, position_ficha):
+	nodo_game_master.cambiar_anuncio("No hay Anuncios")
 	# Si los dados tienen el mismo valor, mueve la ficha
 	# Esto aplica cuando una ficha esta en la casa, para sacarla 
 	
 	var tween = position_ficha.get_node("MovimientoC" + casa_ficha + numero_ficha)
+	print(tween)
 	if dado1_valor == dado2_valor and !(salida):
 		# Obtiene la posición final de la casilla correspondiente
-		var posicion_final = get_node("../../Casilla2").get_global_position()
+		var posicion_final = get_node("../../Casilla7").get_global_position()
+		print(posicion_final)
 		
 		# Crea una interpolación Tween para mover la ficha
 		#var tween = position_ficha.get_node("MovimientoC11")
@@ -57,6 +76,8 @@ func mover_ficha(dado1_valor, dado2_valor, position_ficha):
 		salio_de_casa()
 		if !(comer_ficha(position_ficha.position)):
 			nodo_game_master.cambiarTurno()
+			nodo_game_master.cambiar_anuncio("No hay Anuncios")
+			
 	elif salida:
 		# Si la ficha ya esta afuera de la casa, entonces se mueve por la casillas
 		# de acuerdo al numero de un dado o dos (por ahora los dos)
@@ -81,6 +102,7 @@ func mover_ficha(dado1_valor, dado2_valor, position_ficha):
 		# Luego de llegar a su ultima casilla correspondiente vemos si pude comer a otra ficha
 		if !(comer_ficha(position_ficha.position)):
 			nodo_game_master.cambiarTurno()
+			nodo_game_master.cambiar_anuncio("No hay Anuncios")
 
 func comer_ficha(posicion_final):
 	var comio_fichas = false

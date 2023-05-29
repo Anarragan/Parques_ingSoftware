@@ -21,9 +21,11 @@ extends Node2D
 		# 3. mover n casilla de acuerdo al valor de la suma de los dados
 
 # Called when the node enters the scene tree for the first time.
+var nodo_game_master = null
+
 func _ready():
-	pass # Replace with function body.
-	
+	nodo_game_master = $GameMaster
+	print(nodo_game_master)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
@@ -42,4 +44,14 @@ func lanzar_dados():
 	dado1.frame = frame_dado1
 	dado2.frame = frame_dado2
 	
-	$FichaC11/ficha.mover_ficha(frame_dado1, frame_dado2, $FichaC11)
+	if nodo_game_master.obtenerJugador() == "Jugador1":
+		$FichaC11/ficha.mover_ficha(frame_dado1, frame_dado2, $FichaC11)
+	elif nodo_game_master.obtenerJugador() == "Jugador2":
+		if frame_dado1 == frame_dado2:
+			$Jugador2.fichas_en_casa()
+		$FichaC21/ficha.mover_ficha(frame_dado1, frame_dado2, $FichaC21)
+	elif nodo_game_master.obtenerJugador() == "Jugador3":
+		$FichaC31/ficha.mover_ficha(frame_dado1, frame_dado2, $FichaC31)
+	else:
+		$FichaC41/ficha.mover_ficha(frame_dado1, frame_dado2, $FichaC41)
+		

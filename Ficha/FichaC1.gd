@@ -1,8 +1,7 @@
 extends Sprite
 
 
-# TO DO: lo ideal es hacer un algoritmo en la que se iteré por todos las posibles enemigos de
-# la ficha. Esto para los caso en la que puede comer 2, 3 o mas ficha enemigas a la vez.
+
 
 # To DO: Cada ficha tendra respectivamente su posicion inicial = 1 (que sera la casilla de salida respectiva)
 # y su casilla final (contar cuantas casillas hay hasta el final, se supone que es igual para todos) que es la meta
@@ -15,11 +14,24 @@ extends Sprite
 
 var salida = false
 var jugador = null
-#var posicion_inicial = Vector2(65, 546)
-var casa_ficha = 1
+
+var casa_ficha = null
+var numero_ficha = null
+
+var nodo_game_master = null
 
 func _ready():
-	pass
+	nodo_game_master = get_node("../../GameMaster")
+	
+
+	# Acceder al nodo padre para luego obetner cual es su casa y numero para definir 
+	# que tipo de ficha es la que se mueve o comienza a interactuar
+	var nombrepParentNode = get_parent().get_name()
+	casa_ficha = nombrepParentNode[-2]
+	numero_ficha = nombrepParentNode[-1]
+	print(casa_ficha, numero_ficha)
+	
+
 
 func salio_de_casa():
 	salida = true
@@ -30,7 +42,7 @@ func mover_ficha(dado1_valor, dado2_valor, position_ficha):
 	# Si los dados tienen el mismo valor, mueve la ficha
 	# Esto aplica cuando una ficha esta en la casa, para sacarla 
 	
-	var tween = position_ficha.get_node("MovimientoC11")
+	var tween = position_ficha.get_node("MovimientoC" + casa_ficha + numero_ficha)
 	if dado1_valor == dado2_valor and !(salida):
 		# Obtiene la posición final de la casilla correspondiente
 		var posicion_final = get_node("../../Casilla1").get_global_position()
@@ -43,7 +55,8 @@ func mover_ficha(dado1_valor, dado2_valor, position_ficha):
 		# Cambiamos el valor de salida dado que ya la ficha salio de la casa y ademas verificamos
 		# si esta come
 		salio_de_casa()
-		comer_ficha(position_ficha.position)
+		if !(comer_ficha(position_ficha.position)):
+			nodo_game_master.cambiarTurno()
 	elif salida:
 		# Si la ficha ya esta afuera de la casa, entonces se mueve por la casillas
 		# de acuerdo al numero de un dado o dos (por ahora los dos)
@@ -66,22 +79,23 @@ func mover_ficha(dado1_valor, dado2_valor, position_ficha):
 			# Espera a que la interpolación Tween termine antes de continuar
 			yield(tween, "tween_completed")
 		# Luego de llegar a su ultima casilla correspondiente vemos si pude comer a otra ficha
-		comer_ficha(position_ficha.position)
+		if !(comer_ficha(position_ficha.position)):
+			nodo_game_master.cambiarTurno()
 
 func comer_ficha(posicion_final):
+	var comio_fichas = false
 	# obtenemos los nodos de las fichas enemigas
 	for f in range(1, 5):
-		if f == casa_ficha:
+		if f == int(casa_ficha):
 			continue
 		for i in range(1, 5):
-			#print(f, i)
-			var ficha_enemiga = get_node("../../FichaC" + str(f) + str(i))
-			
-			# Este codigo se quita cuando ya este todas las fichas cargadas:
 			if (f == 1 or f == 3 or f == 4)  and i > 1:
 				break
 			elif f == 2 and i > 2:
 				break
+			var ficha_enemiga = get_node("../../FichaC" + str(f) + str(i))
+			
+			# Este codigo se quita cuando ya este todas las fichas cargadas:
 			
 			# Si la posicion  del puntero de la ficha enemiga es igual a a la posicion de la ficha
 			# entonces la ficha enemiga retorna a su casa a su posicion inicial
@@ -94,3 +108,5 @@ func comer_ficha(posicion_final):
 				tween.interpolate_property(ficha_enemiga, "position", ficha_enemiga.position, casa_enemiga.position, 0.25, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 				tween.start()
 				yield(tween, "tween_completed")
+				comio_fichas = true
+	return comio_fichas

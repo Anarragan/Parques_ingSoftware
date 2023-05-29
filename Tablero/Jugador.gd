@@ -1,6 +1,6 @@
 extends Node
 
-var nombre = ""  # Nombre del jugador
+var nombre = get_name()  # Nombre del jugador
 var fichas = []  # Lista de fichas del jugador
 var fichaSeleccionada = null  # Ficha seleccionada por el jugador
 

@@ -11,8 +11,8 @@ extends Sprite
 
 # TO DO: Cuando la ficha llegue a la meta, esta queda "inhabilitada". es decir ya no esta disponible para mover
 
-
-var salida = true #Como estamos en prueba, la ficha ya esta afuera
+#como estamos en prueba salida es true
+var salida = true
 var jugador = null
 
 var casa_ficha = null
@@ -35,17 +35,18 @@ func _ready():
 
 func salio_de_casa():
 	salida = true
-var posicion_actual = 2 #Es la posicion actual de la ficha (prueba)
+var posicion_actual = 15 #Es la posicion actual de la ficha (prueba)
 
 
 func mover_ficha(dado1_valor, dado2_valor, position_ficha):
+	nodo_game_master.cambiar_anuncio("No hay Anuncios")
 	# Si los dados tienen el mismo valor, mueve la ficha
 	# Esto aplica cuando una ficha esta en la casa, para sacarla 
 	
 	var tween = position_ficha.get_node("MovimientoC" + casa_ficha + numero_ficha)
 	if dado1_valor == dado2_valor and !(salida):
 		# Obtiene la posición final de la casilla correspondiente
-		var posicion_final = get_node("../../Casilla2").get_global_position()
+		var posicion_final = get_node("../../Casilla15").get_global_position()
 		
 		# Crea una interpolación Tween para mover la ficha
 		#var tween = position_ficha.get_node("MovimientoC11")
