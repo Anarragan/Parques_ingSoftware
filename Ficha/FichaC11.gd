@@ -58,7 +58,7 @@ func mover_ficha(dado1_valor, dado2_valor, position_ficha):
 		salio_de_casa()
 		if !(comer_ficha(position_ficha.position)):
 			nodo_game_master.cambiarTurno()
-	elif salida:
+	elif salida:#<----- PARTE DEL CODIGO A MODIFICAR !!!!
 		# Si la ficha ya esta afuera de la casa, entonces se mueve por la casillas
 		# de acuerdo al numero de un dado o dos (por ahora los dos)
 		var posicion_final = posicion_actual + dado1_valor + dado2_valor + 2

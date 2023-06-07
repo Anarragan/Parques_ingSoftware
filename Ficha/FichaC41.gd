@@ -35,7 +35,7 @@ func _ready():
 
 func salio_de_casa():
 	salida = true
-var posicion_actual = 2 #Es la posicion actual de la ficha (prueba)
+var posicion_actual = 3 #Es la posicion actual de la ficha (prueba)
 
 
 func mover_ficha(dado1_valor, dado2_valor, position_ficha):
