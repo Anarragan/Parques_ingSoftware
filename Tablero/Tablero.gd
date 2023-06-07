@@ -22,7 +22,8 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 var nodo_game_master = null
-
+var frame_dado1
+var frame_dado2
 func _ready():
 	nodo_game_master = $GameMaster
 	print(nodo_game_master)
@@ -31,7 +32,10 @@ func _ready():
 #	pass
 func _on_Button_pressed():
 	lanzar_dados()
-	
+func _on_BDado1_pressed():
+	Bdado1()
+func _on_BDado2_pressed():
+	Bdado2()
 func lanzar_dados():
 	# Obtener una referencia a los nodos AnimatedSprite de los dados
 	var dado1 = get_node("Dado1")
@@ -43,15 +47,28 @@ func lanzar_dados():
 	# Establecer el frame seleccionado para cada dado
 	dado1.frame = frame_dado1
 	dado2.frame = frame_dado2
+
 	
+func Bdado1():
 	if nodo_game_master.obtenerJugador() == "Jugador1":
-		$FichaC11/ficha.mover_ficha(frame_dado1, frame_dado2, $FichaC11)
-	elif nodo_game_master.obtenerJugador() == "Jugador2":
-		if frame_dado1 == frame_dado2:
-			$Jugador2.fichas_en_casa()
-		$FichaC21/ficha.mover_ficha(frame_dado1, frame_dado2, $FichaC21)
-	elif nodo_game_master.obtenerJugador() == "Jugador3":
-		$FichaC31/ficha.mover_ficha(frame_dado1, frame_dado2, $FichaC31)
-	else:
-		$FichaC41/ficha.mover_ficha(frame_dado1, frame_dado2, $FichaC41)
+		$FichaC11/ficha.mover_ficha(frame_dado1,frame_dado2, $FichaC11)
+func Bdado2():
+	if nodo_game_master.obtenerJugador() == "Jugador1":
+		$FichaC11/ficha.mover_ficha(frame_dado1,frame_dado2, $FichaC11)
+	#if frame_dado1 == frame_dado2:
+			#$Jugador1.mover_ficha()
+	
+	#if nodo_game_master.obtenerJugador() == "Jugador1":
+	#	$FichaC11/ficha.mover_ficha(frame_dado1, frame_dado2, $FichaC11)
+	#elif nodo_game_master.obtenerJugador() == "Jugador2":
+	#	if frame_dado1 == frame_dado2:
+	#		$Jugador2.fichas_en_casa()
+	#	$FichaC21/ficha.mover_ficha(frame_dado1, frame_dado2, $FichaC21)
+	#elif nodo_game_master.obtenerJugador() == "Jugador3":
+	#	$FichaC31/ficha.mover_ficha(frame_dado1, frame_dado2, $FichaC31)
+	#else:
+	#	$FichaC41/ficha.mover_ficha(frame_dado1, frame_dado2, $FichaC41)
 		
+
+
+
