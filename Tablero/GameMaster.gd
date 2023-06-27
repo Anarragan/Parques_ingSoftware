@@ -6,6 +6,9 @@ var turno = 0  # Número de turno actual
 var dadosLanzados = false  # Indica si los dados han sido lanzados en el turno actual
 var labelTurno = null
 var anuncioLabel = null
+const casillasSeguro = [8, 13, 25, 30, 42, 47, 59, 64]
+
+
 
 func _ready():
 	labelTurno = get_node("../VBoxContainer/Jugador")
@@ -14,6 +17,9 @@ func _ready():
 	
 func obtenerJugador():
 	return jugadorActual
+	
+func getCasillasSeguro():
+	return casillasSeguro
 	
 func cambiar_anuncio(anuncio):
 	anuncioLabel.text = anuncio
@@ -48,5 +54,5 @@ func cambiarTurno():
 	actualizarTurno()
 
 	# Reiniciar el estado de los dados lanzados
-	#dadosLanzados = false
+	# dadosLanzados = false
 

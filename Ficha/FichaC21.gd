@@ -12,17 +12,19 @@ extends Sprite
 # TO DO: Cuando la ficha llegue a la meta, esta queda "inhabilitada". es decir ya no esta disponible para mover
 
 # como estamos en prueba salida es true
-var salida = true
-
+var salida = false
 var jugador = null
-
 var casa_ficha = null
 var numero_ficha = null
 var nodo_game_master = null
+var posicion_actual = 52
+const salidaCasa = 52
+
+
 
 func _ready():
 	nodo_game_master = get_node("../../GameMaster")
-	
+	jugador = get_node("../../Jugador2")
 
 	# Acceder al nodo padre para luego obetner cual es su casa y numero para definir 
 	# que tipo de ficha es la que se mueve o comienza a interactuar
@@ -37,20 +39,43 @@ func estado_salida():
 func salio_de_casa():
 	salida = true
 	
-var posicion_actual = 7 # es la casilla en la que esta la ficha
+func ficha_a_casa():
+	salida = false
+	posicion_actual = 52
+
+func getJugador():
+	return jugador
+	
+func getSalidaCasa():
+	return salidaCasa
+
+func getPosicion_actual():
+	return posicion_actual
+	
+func salir_a_casa():
+	var salida_inicial = get_node("../../Casilla52").get_global_position()
+	print(salida_inicial)
+	var tween = get_node("../MovimientoC21")
+	print(tween)
+	var nodo_ficha = get_node("..")
+	print(nodo_ficha)
+	tween.interpolate_property(nodo_ficha, "position", nodo_ficha.position, salida_inicial, 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	tween.start()
+	yield(tween, "tween_completed")
+	salio_de_casa()
 
 
-func mover_ficha(dado1_valor, dado2_valor, position_ficha):
+func sacar_ficha(dado1_valor, dado2_valor, position_ficha):
 	nodo_game_master.cambiar_anuncio("No hay Anuncios")
 	# Si los dados tienen el mismo valor, mueve la ficha
 	# Esto aplica cuando una ficha esta en la casa, para sacarla 
+	# Restablecer los intentos y lanzamientos restantes cuando se mueve una ficha
+
 	
 	var tween = position_ficha.get_node("MovimientoC" + casa_ficha + numero_ficha)
-	print(tween)
 	if dado1_valor == dado2_valor and !(salida):
 		# Obtiene la posición final de la casilla correspondiente
-		var posicion_final = get_node("../../Casilla7").get_global_position()
-		print(posicion_final)
+		var posicion_final = get_node("../../Casilla"+str(posicion_actual)).get_global_position()
 		
 		# Crea una interpolación Tween para mover la ficha
 		#var tween = position_ficha.get_node("MovimientoC11")
@@ -60,45 +85,66 @@ func mover_ficha(dado1_valor, dado2_valor, position_ficha):
 		# Cambiamos el valor de salida dado que ya la ficha salio de la casa y ademas verificamos
 		# si esta come
 		salio_de_casa()
+		jugador.setfichasAfuera(true)
+
 		if !(comer_ficha(position_ficha.position)):
 			nodo_game_master.cambiarTurno()
-			
-	elif salida:
-		# Si la ficha ya esta afuera de la casa, entonces se mueve por la casillas
-		# de acuerdo al numero de un dado o dos (por ahora los dos)
-		var posicion_final = posicion_actual + dado1_valor + dado2_valor + 2
+			nodo_game_master.cambiar_anuncio("No hay Anuncios")
+	
+	else: 	
+		if jugador.getTresTurnos() >= 3:
+			if jugador.getUsarTresTurnos():
+				jugador.setReiniciarTresTurnos()
+			nodo_game_master.cambiarTurno()
+			nodo_game_master.cambiar_anuncio("No hay Anuncios")
+		elif !jugador.getUsarTresTurnos():
+			nodo_game_master.cambiarTurno()
+			nodo_game_master.cambiar_anuncio("No hay Anuncios")
+		else:
+			jugador.setTresTurnosAumentar()
 
-		# Mueve la ficha en cada casilla una por una hasta llegar a la casilla final
+func mover_ficha(dado1_valor, dado2_valor, position_ficha, dadoDerecho):
+	if salida:
+		nodo_game_master.cambiar_anuncio("No hay Anuncios")
+		# Si los dados tienen el mismo valor, mueve la ficha
+		# Esto aplica cuando una ficha esta en la casa, para sacarla 
+		# Restablecer los intentos y lanzamientos restantes cuando se mueve una ficha
+		var tween = position_ficha.get_node("MovimientoC" + casa_ficha + numero_ficha)
+		var posicion_final 
+		if !dadoDerecho:
+			posicion_final = posicion_actual + dado1_valor + 1
+		else:
+			posicion_final = posicion_actual + dado2_valor + 1
+
 		for i in range(posicion_actual+1, posicion_final+1):
-			# Obtiene la casilla actual y la siguiente casilla a moverseMovimientoC11
 			var casilla_actual = get_node("../../Casilla"+str(posicion_actual))
-			var siguiente_casilla = get_node("../../Casilla"+str(i))
-
-		# Crea una interpolación Tween para mover la ficha a la siguiente casilla
-			#var tween = get_node("../MovimientoC11")
+			var siguiente_casilla = get_node("../../Casilla"+str(i % 68 + 1))  # Calcula la casilla siguiente utilizando el operador de módulo (%)
+			tween = position_ficha.get_node("MovimientoC" + casa_ficha + numero_ficha)
 			tween.interpolate_property(position_ficha, "position", casilla_actual.get_global_position(), siguiente_casilla.get_global_position(), 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 			tween.start()
-
-			# Actualiza la posición actual de la ficha
-			posicion_actual = i
-
-			# Espera a que la interpolación Tween termine antes de continuar
+			posicion_actual = i % 68 + 1  # Actualiza la posición actual utilizando el operador de módulo (%)
 			yield(tween, "tween_completed")
-		# Luego de llegar a su ultima casilla correspondiente vemos si pude comer a otra ficha
-		if !(comer_ficha(position_ficha.position)):
+		
+		jugador.SetContDadosUsados(jugador.getContDadosUsados() + 1)
+		var comio = comer_ficha(position_ficha.position)
+		
+		if dado1_valor == dado2_valor or comio:
+			nodo_game_master.cambiar_anuncio("Vuelve a lanzar!")
+			jugador.SetContDadosUsados(0)
+		elif jugador.getContDadosUsados() == 2:
 			nodo_game_master.cambiarTurno()
+			nodo_game_master.cambiar_anuncio("No hay Anuncios")
+			jugador.SetContDadosUsados(0)
+
 
 func comer_ficha(posicion_final):
 	var comio_fichas = false
+	
 	# obtenemos los nodos de las fichas enemigas
 	for f in range(1, 5):
 		if f == int(casa_ficha):
 			continue
 		for i in range(1, 5):
-			if (f == 1 or f == 3 or f == 4)  and i > 1:
-				break
-			elif f == 2 and i > 2:
-				break
 			var ficha_enemiga = get_node("../../FichaC" + str(f) + str(i))
 			
 			# Este codigo se quita cuando ya este todas las fichas cargadas:
@@ -106,6 +152,24 @@ func comer_ficha(posicion_final):
 			# Si la posicion  del puntero de la ficha enemiga es igual a a la posicion de la ficha
 			# entonces la ficha enemiga retorna a su casa a su posicion inicial
 			if ficha_enemiga.global_position == posicion_final:
+				var casilla_enemiga = get_node("../../Casilla"+str(ficha_enemiga.get_child(0).getSalidaCasa()))
+				
+				# Ahora estos condicionales se usan para verificar si la ficha enemiga esta en una casilla
+				# donde no puede ser "comida"
+				# Caso 1: Casilla enemiga en casilla de su respectiva casa:
+				if ficha_enemiga.global_position == casilla_enemiga.global_position:
+					continue
+				
+				# Caso 2: Si esta en una casilla seguro
+				var enemigoEnCasillaSeguro = false
+				for casillaSeguro in nodo_game_master.getCasillasSeguro():
+					if casillaSeguro == ficha_enemiga.get_child(0).getPosicion_actual():
+						enemigoEnCasillaSeguro = true
+						break
+				if enemigoEnCasillaSeguro:
+					enemigoEnCasillaSeguro = false
+					continue
+								
 				# Hacer desaparecer la ficha enemiga
 				#ficha_enemiga.queue_free()
 				# Mover la ficha actual a la posición final
@@ -116,4 +180,8 @@ func comer_ficha(posicion_final):
 				yield(tween, "tween_completed")
 				comio_fichas = true
 				nodo_game_master.cambiar_anuncio("Lanzar Nuevamente")
+				ficha_enemiga.get_child(0).ficha_a_casa()
+				# Cuando es comida la ficha del jugador, entonces tiene la posibilidad de lanzar tre
+				# veces hasta sacar ficha (estamos con una ficha por jugador, cuando se de 4 fichas se cambia lo logica)
+				ficha_enemiga.get_child(0).getJugador().setReiniciarTresTurnos()
 	return comio_fichas

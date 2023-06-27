@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Tablero/Parqués.png" type="Texture" id=1]
 [ext_resource path="res://Dados/Dado.tscn" type="PackedScene" id=2]
@@ -18,6 +18,7 @@
 [ext_resource path="res://Ficha/FichaC41.gd" type="Script" id=16]
 [ext_resource path="res://Ficha/FichaC11.gd" type="Script" id=17]
 [ext_resource path="res://Dados/Dado.gd" type="Script" id=18]
+[ext_resource path="res://Ficha/FichaC42.gd" type="Script" id=19]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 14.5, 56.9617 )
@@ -26,17 +27,17 @@ extents = Vector2( 14.5, 56.9617 )
 extents = Vector2( 56.5, 14 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 56, 14 )
+extents = Vector2( 47, 15 )
 
 [node name="Tablero" type="Node2D"]
 script = ExtResource( 3 )
 
 [node name="Fondo" type="Sprite" parent="."]
-position = Vector2( -1.90735e-06, 0 )
+position = Vector2( 404, 272 )
 scale = Vector2( 0.477427, 0.383183 )
 texture = ExtResource( 1 )
 centered = false
-offset = Vector2( 2.0945, 0 )
+offset = Vector2( -844.108, -709.844 )
 
 [node name="Dado1" parent="." groups=["dado1"] instance=ExtResource( 2 )]
 position = Vector2( 851, 50 )
@@ -84,10 +85,10 @@ script = ExtResource( 17 )
 [node name="MovimientoC11" type="Tween" parent="FichaC11"]
 
 [node name="FichaC21" type="Position2D" parent="."]
-position = Vector2( 312, 524 )
+position = Vector2( 177, 141 )
 
 [node name="ficha" parent="FichaC21" groups=["fichaC21"] instance=ExtResource( 4 )]
-position = Vector2( 1, -15 )
+position = Vector2( -1, -14 )
 scale = Vector2( 0.133301, 0.135254 )
 texture = ExtResource( 6 )
 script = ExtResource( 13 )
@@ -95,10 +96,10 @@ script = ExtResource( 13 )
 [node name="MovimientoC21" type="Tween" parent="FichaC21"]
 
 [node name="FichaC22" type="Position2D" parent="." groups=["fichaC22"]]
-position = Vector2( 166, 435 )
+position = Vector2( 541, 136 )
 
 [node name="ficha" parent="FichaC22" groups=["fichaC11"] instance=ExtResource( 4 )]
-position = Vector2( 0, -20 )
+position = Vector2( 0, -17 )
 scale = Vector2( 0.133301, 0.135254 )
 texture = ExtResource( 6 )
 script = ExtResource( 11 )
@@ -106,12 +107,13 @@ script = ExtResource( 11 )
 [node name="MovimientoC22" type="Tween" parent="FichaC22"]
 
 [node name="Casilla1" type="Position2D" parent="."]
-position = Vector2( 166, 435 )
+position = Vector2( 166, 433 )
 
 [node name="Area2D" type="Area2D" parent="Casilla1"]
+position = Vector2( -8, 17 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla1/Area2D"]
-position = Vector2( 0, -2 )
+position = Vector2( 8, -17 )
 shape = SubResource( 1 )
 
 [node name="Casilla2" type="Position2D" parent="."]
@@ -219,7 +221,7 @@ shape = SubResource( 3 )
 position = Vector2( 178, 142 )
 
 [node name="Casa22" type="Position2D" parent="."]
-position = Vector2( 64, 146 )
+position = Vector2( 65, 148 )
 
 [node name="GameMaster" type="Node" parent="."]
 script = ExtResource( 7 )
@@ -288,11 +290,11 @@ position = Vector2( -10, -7 )
 shape = SubResource( 3 )
 
 [node name="FichaC41" type="Position2D" parent="." groups=["fichaC31"]]
-position = Vector2( 200, 432 )
+position = Vector2( 687, 549 )
 rotation = -6.28319
 
 [node name="ficha" parent="FichaC41" groups=["fichaC11"] instance=ExtResource( 4 )]
-position = Vector2( 2.00004, -18 )
+position = Vector2( 2.00049, -10 )
 scale = Vector2( 0.133301, 0.135254 )
 texture = ExtResource( 9 )
 script = ExtResource( 16 )
@@ -300,11 +302,11 @@ script = ExtResource( 16 )
 [node name="MovimientoC41" type="Tween" parent="FichaC41"]
 
 [node name="FichaC31" type="Position2D" parent="." groups=["fichaC41"]]
-position = Vector2( 540, 634 )
+position = Vector2( 797, 141 )
 rotation = -6.28319
 
 [node name="ficha" parent="FichaC31" groups=["fichaC11"] instance=ExtResource( 4 )]
-position = Vector2( 1, -16 )
+position = Vector2( 0, -11 )
 scale = Vector2( 0.133301, 0.135254 )
 texture = ExtResource( 10 )
 script = ExtResource( 12 )
@@ -312,7 +314,7 @@ script = ExtResource( 12 )
 [node name="MovimientoC31" type="Tween" parent="FichaC31"]
 
 [node name="Casa31" type="Position2D" parent="."]
-position = Vector2( 795, 139 )
+position = Vector2( 796, 147 )
 
 [node name="Casa41" type="Position2D" parent="."]
 position = Vector2( 688, 551 )
@@ -414,16 +416,651 @@ position = Vector2( 6.29297, 2.32343 )
 position = Vector2( 13.7065, 0.842346 )
 polygon = PoolVector2Array( -38.0665, 42.4257, -22.7418, 50.8017, 12.9538, -35.4006, -29.9664, -56.4448 )
 
-[node name="Casilla24(Salida C2)" type="Position2D" parent="."]
+[node name="Casilla52" type="Position2D" parent="."]
 position = Vector2( 309, 136 )
 
-[node name="Area2D" type="Area2D" parent="Casilla24(Salida C2)"]
+[node name="Area2D" type="Area2D" parent="Casilla52"]
 position = Vector2( 2, 0 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla24(Salida C2)/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla52/Area2D"]
 position = Vector2( -1, -1 )
 rotation = 1.5708
 shape = SubResource( 1 )
+
+[node name="Casilla24" type="Position2D" parent="."]
+position = Vector2( 651, 433 )
+rotation = 1.46608
+
+[node name="Area2D" type="Area2D" parent="Casilla24"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla24/Area2D"]
+position = Vector2( -7, -6 )
+shape = SubResource( 3 )
+
+[node name="Casilla25" type="Position2D" parent="."]
+position = Vector2( 687, 435 )
+rotation = 1.5708
+
+[node name="Area2D" type="Area2D" parent="Casilla25"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla25/Area2D"]
+position = Vector2( -6.50003, -6.10449 )
+shape = SubResource( 3 )
+
+[node name="Casilla26" type="Position2D" parent="."]
+position = Vector2( 722, 437 )
+rotation = 1.5708
+
+[node name="Area2D" type="Area2D" parent="Casilla26"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla26/Area2D"]
+position = Vector2( -7, -6 )
+shape = SubResource( 3 )
+
+[node name="Casilla27" type="Position2D" parent="."]
+position = Vector2( 757, 437 )
+rotation = 1.5708
+
+[node name="Area2D" type="Area2D" parent="Casilla27"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla27/Area2D"]
+position = Vector2( -9.00003, -7 )
+shape = SubResource( 3 )
+
+[node name="Casilla28" type="Position2D" parent="."]
+position = Vector2( 791, 436 )
+rotation = 1.5708
+
+[node name="Area2D" type="Area2D" parent="Casilla28"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla28/Area2D"]
+position = Vector2( -6.0054, -5.89539 )
+shape = SubResource( 3 )
+
+[node name="Casilla29" type="Position2D" parent="."]
+position = Vector2( 824, 437 )
+rotation = 1.5708
+
+[node name="Area2D" type="Area2D" parent="Casilla29"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla29/Area2D"]
+position = Vector2( -6.00003, -6 )
+shape = SubResource( 3 )
+
+[node name="Casilla30" type="Position2D" parent="."]
+position = Vector2( 825, 342 )
+rotation = 1.46608
+
+[node name="Area2D" type="Area2D" parent="Casilla30"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla30/Area2D"]
+position = Vector2( -6.79099, -7.98901 )
+rotation = 0.10472
+shape = SubResource( 3 )
+
+[node name="Casilla31" type="Position2D" parent="."]
+position = Vector2( 825, 259 )
+rotation = 1.5708
+
+[node name="Area2D" type="Area2D" parent="Casilla31"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla31/Area2D"]
+position = Vector2( -12, -5.99994 )
+shape = SubResource( 3 )
+
+[node name="Casilla32" type="Position2D" parent="."]
+position = Vector2( 790, 256 )
+rotation = 1.5708
+
+[node name="Area2D" type="Area2D" parent="Casilla32"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla32/Area2D"]
+position = Vector2( -10, -7 )
+shape = SubResource( 3 )
+
+[node name="Casilla33" type="Position2D" parent="."]
+position = Vector2( 758, 256 )
+rotation = 1.5708
+
+[node name="Area2D" type="Area2D" parent="Casilla33"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla33/Area2D"]
+position = Vector2( -8.99997, -4 )
+shape = SubResource( 3 )
+
+[node name="Casilla34" type="Position2D" parent="."]
+position = Vector2( 720, 254 )
+rotation = 1.5708
+
+[node name="Area2D" type="Area2D" parent="Casilla34"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla34/Area2D"]
+position = Vector2( -7, -6 )
+shape = SubResource( 3 )
+
+[node name="Casilla35" type="Position2D" parent="."]
+position = Vector2( 687, 252 )
+rotation = 1.5708
+
+[node name="Area2D" type="Area2D" parent="Casilla35"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla35/Area2D"]
+position = Vector2( -6, -4 )
+shape = SubResource( 3 )
+
+[node name="Casilla36" type="Position2D" parent="."]
+position = Vector2( 651, 257 )
+rotation = 1.78024
+
+[node name="Area2D" type="Area2D" parent="Casilla36"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla36/Area2D"]
+position = Vector2( -10.9126, -5.16833 )
+shape = SubResource( 3 )
+
+[node name="Casilla37" type="Position2D" parent="."]
+position = Vector2( 614, 250 )
+rotation = 1.98968
+
+[node name="Area2D" type="Area2D" parent="Casilla37"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla37/Area2D"]
+position = Vector2( -9.79362, -6.4425 )
+shape = SubResource( 3 )
+
+[node name="Casilla38" type="Position2D" parent="."]
+position = Vector2( 584, 233 )
+rotation = 2.19911
+
+[node name="Area2D" type="Area2D" parent="Casilla38"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla38/Area2D"]
+position = Vector2( -8.00002, -5 )
+shape = SubResource( 3 )
+
+[node name="Casilla39" type="Position2D" parent="."]
+position = Vector2( 562, 213 )
+rotation = 2.61799
+
+[node name="Area2D" type="Area2D" parent="Casilla39"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla39/Area2D"]
+position = Vector2( -6.49997, -6.86603 )
+shape = SubResource( 3 )
+
+[node name="Casilla40" type="Position2D" parent="."]
+position = Vector2( 546, 191 )
+rotation = 2.82743
+
+[node name="Area2D" type="Area2D" parent="Casilla40"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla40/Area2D"]
+position = Vector2( -7.00002, -6 )
+shape = SubResource( 3 )
+
+[node name="Casilla41" type="Position2D" parent="."]
+position = Vector2( 539, 163 )
+rotation = 3.03687
+
+[node name="Area2D" type="Area2D" parent="Casilla41"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla41/Area2D"]
+position = Vector2( -5.90089, -6.88998 )
+shape = SubResource( 3 )
+
+[node name="Casilla42" type="Position2D" parent="."]
+position = Vector2( 541, 136 )
+
+[node name="Area2D" type="Area2D" parent="Casilla42"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla42/Area2D"]
+position = Vector2( -8.00002, -4 )
+shape = SubResource( 3 )
+
+[node name="Casilla43" type="Position2D" parent="."]
+position = Vector2( 540, 106 )
+
+[node name="Area2D" type="Area2D" parent="Casilla43"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla43/Area2D"]
+position = Vector2( -7, -6 )
+shape = SubResource( 3 )
+
+[node name="Casilla44" type="Position2D" parent="."]
+position = Vector2( 541, 79 )
+
+[node name="Area2D" type="Area2D" parent="Casilla44"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla44/Area2D"]
+position = Vector2( -8.00002, -7 )
+shape = SubResource( 3 )
+
+[node name="Casilla45" type="Position2D" parent="."]
+position = Vector2( 538, 48 )
+
+[node name="Area2D" type="Area2D" parent="Casilla45"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla45/Area2D"]
+position = Vector2( -5.00002, -4 )
+shape = SubResource( 3 )
+
+[node name="Casilla46" type="Position2D" parent="."]
+position = Vector2( 540, 22 )
+
+[node name="Area2D" type="Area2D" parent="Casilla46"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla46/Area2D"]
+position = Vector2( -8.00002, -5 )
+shape = SubResource( 3 )
+
+[node name="Casilla47" type="Position2D" parent="."]
+position = Vector2( 427, 23 )
+
+[node name="Area2D" type="Area2D" parent="Casilla47"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla47/Area2D"]
+position = Vector2( -8, -7 )
+shape = SubResource( 3 )
+
+[node name="Casilla48" type="Position2D" parent="."]
+position = Vector2( 315, 22 )
+
+[node name="Area2D" type="Area2D" parent="Casilla48"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla48/Area2D"]
+position = Vector2( -9, -7 )
+shape = SubResource( 3 )
+
+[node name="Casilla49" type="Position2D" parent="."]
+position = Vector2( 313, 52 )
+
+[node name="Area2D" type="Area2D" parent="Casilla49"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla49/Area2D"]
+position = Vector2( -7, -8 )
+shape = SubResource( 3 )
+
+[node name="Casilla50" type="Position2D" parent="."]
+position = Vector2( 312, 74 )
+
+[node name="Area2D" type="Area2D" parent="Casilla50"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla50/Area2D"]
+position = Vector2( -5, 0 )
+shape = SubResource( 3 )
+
+[node name="Casilla51" type="Position2D" parent="."]
+position = Vector2( 311, 106 )
+
+[node name="Area2D" type="Area2D" parent="Casilla51"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla51/Area2D"]
+position = Vector2( -5, -8 )
+shape = SubResource( 3 )
+
+[node name="Casilla53" type="Position2D" parent="."]
+position = Vector2( 306, 164 )
+rotation = 1.50622
+
+[node name="Area2D" type="Area2D" parent="Casilla53"]
+position = Vector2( -6, 7 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Casilla53/Area2D"]
+polygon = PoolVector2Array( 14.2415, -10.4754, 30.6991, -63.5239, -4.90321, -70.8366, -13.1933, 41.8633, 4.64014, 45.0207, 29.6366, -62.5905 )
+
+[node name="Casilla54" type="Position2D" parent="."]
+position = Vector2( 304, 191 )
+rotation = 1.71566
+
+[node name="Area2D" type="Area2D" parent="Casilla54"]
+position = Vector2( -6, 7 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Casilla54/Area2D"]
+position = Vector2( 0.805603, 5.88477 )
+polygon = PoolVector2Array( 14.2415, -10.4754, 30.6991, -63.5239, -4.90321, -70.8366, -13.1933, 41.8633, 4.64014, 45.0207, 29.6366, -62.5905 )
+
+[node name="Casilla55" type="Position2D" parent="."]
+position = Vector2( 291, 216 )
+rotation = 2.00713
+
+[node name="Area2D" type="Area2D" parent="Casilla55"]
+position = Vector2( -6, 7 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Casilla55/Area2D"]
+position = Vector2( 0.25679, 6.71187 )
+polygon = PoolVector2Array( 14.2415, -10.4754, 30.6991, -63.5239, -4.90321, -70.8366, -13.1933, 41.8633, 4.64014, 45.0207, 29.6366, -62.5905 )
+
+[node name="Casilla56" type="Position2D" parent="."]
+position = Vector2( 270, 233 )
+rotation = 2.13454
+
+[node name="Area2D" type="Area2D" parent="Casilla56"]
+position = Vector2( -6, 7 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Casilla56/Area2D"]
+position = Vector2( 1.23392, 4.71684 )
+polygon = PoolVector2Array( 14.2415, -10.4754, 30.6991, -63.5239, -4.90321, -70.8366, -13.1933, 41.8633, 4.64014, 45.0207, 29.6366, -62.5905 )
+
+[node name="Casilla57" type="Position2D" parent="."]
+position = Vector2( 235, 249 )
+rotation = 1.29678
+
+[node name="Area2D" type="Area2D" parent="Casilla57"]
+position = Vector2( -6, 7 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Casilla57/Area2D"]
+polygon = PoolVector2Array( 46.3133, 8.48654, 47.8696, -45.0912, -45.923, -7.05237, -45.0177, 11.8997 )
+
+[node name="Casilla58" type="Position2D" parent="."]
+position = Vector2( 200, 256 )
+rotation = 1.50622
+
+[node name="Area2D" type="Area2D" parent="Casilla58"]
+position = Vector2( -6, 7 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Casilla58/Area2D"]
+polygon = PoolVector2Array( -46.8596, 4.61308, -45.698, -13.3494, 44.8589, -34.5498, 45.8175, 12.6104 )
+
+[node name="Casilla59" type="Position2D" parent="."]
+position = Vector2( 166, 248 )
+rotation = 1.5708
+
+[node name="Area2D" type="Area2D" parent="Casilla59"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla59/Area2D"]
+position = Vector2( -4, -5 )
+shape = SubResource( 3 )
+
+[node name="Casilla60" type="Position2D" parent="."]
+position = Vector2( 133, 248 )
+rotation = 1.5708
+
+[node name="Area2D" type="Area2D" parent="Casilla60"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla60/Area2D"]
+position = Vector2( -5, -5.00001 )
+shape = SubResource( 3 )
+
+[node name="Casilla61" type="Position2D" parent="."]
+position = Vector2( 97, 251 )
+rotation = 1.5708
+
+[node name="Area2D" type="Area2D" parent="Casilla61"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla61/Area2D"]
+position = Vector2( -6, -6 )
+shape = SubResource( 3 )
+
+[node name="Casilla62" type="Position2D" parent="."]
+position = Vector2( 61, 250 )
+rotation = 1.5708
+
+[node name="Area2D" type="Area2D" parent="Casilla62"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla62/Area2D"]
+position = Vector2( -7, -6.00001 )
+shape = SubResource( 3 )
+
+[node name="Casilla63" type="Position2D" parent="."]
+position = Vector2( 25, 251 )
+rotation = 1.5708
+
+[node name="Area2D" type="Area2D" parent="Casilla63"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla63/Area2D"]
+position = Vector2( -8, -6.00001 )
+shape = SubResource( 3 )
+
+[node name="Casilla64" type="Position2D" parent="."]
+position = Vector2( 25, 341 )
+rotation = 1.5708
+
+[node name="Area2D" type="Area2D" parent="Casilla64"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla64/Area2D"]
+position = Vector2( -8, -7 )
+shape = SubResource( 3 )
+
+[node name="Casilla65" type="Position2D" parent="."]
+position = Vector2( 26, 428 )
+rotation = 1.5708
+
+[node name="Area2D" type="Area2D" parent="Casilla65"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla65/Area2D"]
+position = Vector2( -6, -5 )
+shape = SubResource( 3 )
+
+[node name="Casilla66" type="Position2D" parent="."]
+position = Vector2( 60, 430 )
+rotation = 1.5708
+
+[node name="Area2D" type="Area2D" parent="Casilla66"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla66/Area2D"]
+position = Vector2( -6, -7 )
+shape = SubResource( 3 )
+
+[node name="Casilla67" type="Position2D" parent="."]
+position = Vector2( 97, 431 )
+rotation = 1.5708
+
+[node name="Area2D" type="Area2D" parent="Casilla67"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla67/Area2D"]
+position = Vector2( -7, -6 )
+shape = SubResource( 3 )
+
+[node name="Casilla68" type="Position2D" parent="."]
+position = Vector2( 131, 432 )
+rotation = 1.5708
+
+[node name="Area2D" type="Area2D" parent="Casilla68"]
+position = Vector2( 7, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casilla68/Area2D"]
+position = Vector2( -6, -6 )
+shape = SubResource( 3 )
+
+[node name="FichaC12" type="Position2D" parent="."]
+position = Vector2( 177, 545 )
+rotation = -6.28319
+
+[node name="ficha" parent="FichaC12" groups=["fichaC11"] instance=ExtResource( 4 )]
+position = Vector2( 1, -15 )
+scale = Vector2( 0.133301, 0.135254 )
+script = ExtResource( 17 )
+
+[node name="MovimientoC11" type="Tween" parent="FichaC12"]
+
+[node name="FichaC13" type="Position2D" parent="."]
+position = Vector2( 60, 637 )
+rotation = -6.28319
+
+[node name="ficha" parent="FichaC13" groups=["fichaC11"] instance=ExtResource( 4 )]
+position = Vector2( 1.00003, -15 )
+scale = Vector2( 0.133301, 0.135254 )
+script = ExtResource( 17 )
+
+[node name="MovimientoC11" type="Tween" parent="FichaC13"]
+
+[node name="FichaC14" type="Position2D" parent="."]
+position = Vector2( 175, 638 )
+rotation = -6.28319
+
+[node name="ficha" parent="FichaC14" groups=["fichaC11"] instance=ExtResource( 4 )]
+position = Vector2( -0.999878, -16 )
+scale = Vector2( 0.133301, 0.135254 )
+script = ExtResource( 17 )
+
+[node name="MovimientoC11" type="Tween" parent="FichaC14"]
+
+[node name="FichaC23" type="Position2D" parent="."]
+position = Vector2( 178, 56 )
+
+[node name="ficha" parent="FichaC23" groups=["fichaC21"] instance=ExtResource( 4 )]
+position = Vector2( 2, -15 )
+scale = Vector2( 0.133301, 0.135254 )
+texture = ExtResource( 6 )
+script = ExtResource( 13 )
+
+[node name="MovimientoC21" type="Tween" parent="FichaC23"]
+
+[node name="FichaC24" type="Position2D" parent="."]
+position = Vector2( 68, 55 )
+
+[node name="ficha" parent="FichaC24" groups=["fichaC21"] instance=ExtResource( 4 )]
+position = Vector2( 2, -10 )
+scale = Vector2( 0.133301, 0.135254 )
+texture = ExtResource( 6 )
+script = ExtResource( 13 )
+
+[node name="MovimientoC21" type="Tween" parent="FichaC24"]
+
+[node name="FichaC42" type="Position2D" parent="." groups=["fichaC31"]]
+position = Vector2( 541, 551 )
+rotation = -6.28319
+
+[node name="ficha" parent="FichaC42" groups=["fichaC11"] instance=ExtResource( 4 )]
+position = Vector2( 14, -16.9998 )
+scale = Vector2( 0.133301, 0.135254 )
+texture = ExtResource( 9 )
+script = ExtResource( 19 )
+
+[node name="MovimientoC41" type="Tween" parent="FichaC42"]
+
+[node name="FichaC43" type="Position2D" parent="." groups=["fichaC31"]]
+position = Vector2( 687, 644 )
+rotation = -6.28319
+
+[node name="ficha" parent="FichaC43" groups=["fichaC11"] instance=ExtResource( 4 )]
+position = Vector2( 1, -16 )
+scale = Vector2( 0.133301, 0.135254 )
+texture = ExtResource( 9 )
+script = ExtResource( 16 )
+
+[node name="MovimientoC41" type="Tween" parent="FichaC43"]
+
+[node name="FichaC44" type="Position2D" parent="." groups=["fichaC31"]]
+position = Vector2( 801, 641 )
+rotation = -6.28319
+
+[node name="ficha" parent="FichaC44" groups=["fichaC11"] instance=ExtResource( 4 )]
+position = Vector2( 1, -13 )
+scale = Vector2( 0.133301, 0.135254 )
+texture = ExtResource( 9 )
+script = ExtResource( 16 )
+
+[node name="MovimientoC41" type="Tween" parent="FichaC44"]
+
+[node name="FichaC32" type="Position2D" parent="." groups=["fichaC41"]]
+position = Vector2( 680, 140 )
+rotation = -6.28319
+
+[node name="ficha" parent="FichaC32" groups=["fichaC11"] instance=ExtResource( 4 )]
+position = Vector2( 1, -12 )
+scale = Vector2( 0.133301, 0.135254 )
+texture = ExtResource( 10 )
+script = ExtResource( 12 )
+
+[node name="MovimientoC31" type="Tween" parent="FichaC32"]
+
+[node name="FichaC33" type="Position2D" parent="." groups=["fichaC41"]]
+position = Vector2( 797, 48 )
+rotation = -6.28319
+
+[node name="ficha" parent="FichaC33" groups=["fichaC11"] instance=ExtResource( 4 )]
+position = Vector2( 0.999512, -14 )
+scale = Vector2( 0.133301, 0.135254 )
+texture = ExtResource( 10 )
+script = ExtResource( 12 )
+
+[node name="MovimientoC31" type="Tween" parent="FichaC33"]
+
+[node name="FichaC34" type="Position2D" parent="." groups=["fichaC41"]]
+position = Vector2( 683, 51 )
+rotation = -6.28319
+
+[node name="ficha" parent="FichaC34" groups=["fichaC11"] instance=ExtResource( 4 )]
+position = Vector2( 1.00049, -14 )
+scale = Vector2( 0.133301, 0.135254 )
+texture = ExtResource( 10 )
+script = ExtResource( 12 )
+
+[node name="MovimientoC31" type="Tween" parent="FichaC34"]
+
+[node name="Casa23" type="Position2D" parent="."]
+position = Vector2( 179, 59 )
+
+[node name="Casa24" type="Position2D" parent="."]
+position = Vector2( 68, 57 )
+
+[node name="Casa11" type="Position2D" parent="."]
+position = Vector2( 64, 547 )
+
+[node name="Casa12" type="Position2D" parent="."]
+position = Vector2( 177, 545 )
+
+[node name="Casa13" type="Position2D" parent="."]
+position = Vector2( 61, 638 )
+
+[node name="Casa14" type="Position2D" parent="."]
+position = Vector2( 175, 638 )
+
+[node name="Casa42" type="Position2D" parent="."]
+position = Vector2( 802, 552 )
+
+[node name="Casa43" type="Position2D" parent="."]
+position = Vector2( 688, 646 )
+
+[node name="Casa44" type="Position2D" parent="."]
+position = Vector2( 801, 643 )
+
+[node name="Casa32" type="Position2D" parent="."]
+position = Vector2( 680, 147 )
+
+[node name="Casa33" type="Position2D" parent="."]
+position = Vector2( 796, 50 )
+
+[node name="Casa34" type="Position2D" parent="."]
+position = Vector2( 682, 51 )
 
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="BDado1" to="." method="_on_BDado1_pressed"]

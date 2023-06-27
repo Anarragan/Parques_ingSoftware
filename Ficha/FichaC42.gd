@@ -12,20 +12,19 @@ extends Sprite
 # TO DO: Cuando la ficha llegue a la meta, esta queda "inhabilitada". es decir ya no esta disponible para mover
 
 
-var salida = true
+var salida = false
 var jugador = null
 var casa_ficha = null
 var numero_ficha = null
 var nodo_game_master = null
-var posicion_actual = 42
-const salidaCasa = 52
+var posicion_actual = 18
+const salidaCasa = 18
 
 
 
 func _ready():
 	nodo_game_master = get_node("../../GameMaster")
-	jugador = get_node("../../Jugador2")
-
+	jugador = get_node("../../Jugador4")
 	# Acceder al nodo padre para luego obetner cual es su casa y numero para definir 
 	# que tipo de ficha es la que se mueve o comienza a interactuar
 	var nombrepParentNode = get_parent().get_name()
@@ -33,37 +32,23 @@ func _ready():
 	numero_ficha = nombrepParentNode[-1]
 	print(casa_ficha, numero_ficha)
 	
-func estado_salida():
-	return salida
 
-func ficha_a_casa():
-	salida = false
-	posicion_actual = 52
-	
 
 func salio_de_casa():
 	salida = true
-	
+
+func ficha_a_casa():
+	salida = false
+	posicion_actual = 18
+
 func getJugador():
 	return jugador
 
 func getSalidaCasa():
 	return salidaCasa
-	
+
 func getPosicion_actual():
 	return posicion_actual
-
-func salir_a_casa():
-	var salida_inicial = get_node("../../Casilla42").get_global_position()
-	print(salida_inicial)
-	var tween = get_node("../MovimientoC22")
-	print(tween)
-	var nodo_ficha = get_node("..")
-	print(nodo_ficha)
-	tween.interpolate_property(nodo_ficha, "position", nodo_ficha.position, salida_inicial, 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-	tween.start()
-	yield(tween, "tween_completed")
-	salio_de_casa()
 
 func sacar_ficha(dado1_valor, dado2_valor, position_ficha):
 	nodo_game_master.cambiar_anuncio("No hay Anuncios")
@@ -135,7 +120,6 @@ func mover_ficha(dado1_valor, dado2_valor, position_ficha, dadoDerecho):
 			nodo_game_master.cambiarTurno()
 			nodo_game_master.cambiar_anuncio("No hay Anuncios")
 			jugador.SetContDadosUsados(0)
-
 
 func comer_ficha(posicion_final):
 	var comio_fichas = false
